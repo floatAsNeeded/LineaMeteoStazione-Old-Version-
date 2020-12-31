@@ -1270,10 +1270,12 @@ void Nodata(int x, int y, bool IconSize, String IconName) {
 void DrawBattery(int x, int y) {
   uint8_t percentage = 100;
   float voltage = analogRead(35) / 4096.0 * 7.46;
+  voltage = voltage * 100;
   //Serial.println("Voltage = " + String(voltage));
-  percentage = 2836.9625 * pow(voltage, 4) - 43987.4889 * pow(voltage, 3) + 255233.8134 * pow(voltage, 2) - 656689.7123 * voltage + 632041.7303;
-  if (voltage >= 4.23) percentage = 100;
-  if (voltage <= 3.50) percentage = 0;
+  //percentage = 2836.9625 * pow(voltage, 4) - 43987.4889 * pow(voltage, 3) + 255233.8134 * pow(voltage, 2) - 656689.7123 * voltage + 632041.7303;
+  percentage = map(voltage, 350, 420, 0, 100);
+  //if (voltage >= 4.20) percentage = 100;
+  //if (voltage <= 3.50) percentage = 0;
   display.drawRect(x + 15, y - 12, 19, 10, GxEPD_BLACK);
   display.fillRect(x + 34, y - 10, 2, 5, GxEPD_BLACK);
   display.fillRect(x + 17, y - 10, 15 * percentage / 100.0, 6, GxEPD_BLACK);
