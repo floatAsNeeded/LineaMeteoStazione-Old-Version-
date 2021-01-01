@@ -10,3 +10,12 @@ http://www.lineameteo.it/stazioni.php?id=1857
 Please Note (The links above will go Offline because the weather station will be removed in February 2021 because I'm changing house)
 
 YOU CAN FIND ALL THE INFO HERE IN GITHUB
+
+
+# CONSUPTION:
+
+# DEVICE 1 
+19mA in average if upload time is 90 seconds.
+
+# DEVICE 3 
+2mA in average if always updated automatically.
