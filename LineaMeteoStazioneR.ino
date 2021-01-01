@@ -1,3 +1,4 @@
+[code]
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///****************************************LINEAMETEO STAZIONE RECEIVER********************************************///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15,6 +16,8 @@
 #include "NTPClient.h"
 #include <WiFiUDP.h>
 #include <WiFiManager.h>         // https://github.com/tzapu/WiFiManager
+#include <Adafruit_BMP085.h>
+Adafruit_BMP085 bmp;
 WiFiServer server(80);
 WiFiClient client;
 WiFiManager wifiManager;
@@ -92,6 +95,7 @@ int minHumidity;
 
 //////////PRESSURE/////////////
 float pressurehpa;
+int CALIBRATION;
 
 
 ////////////WIND///////////////
@@ -162,6 +166,8 @@ void readData()
     previous = millis();
     uploadtime = 130000;
     readvalues = true;
+    float pressure = bmp.readPressure() + CALIBRATION;
+    pressurehpa = pressure / 100;
 
     if (Firebase.getFloat(Weather, "SHT3x/Temperature/Temperature"))
     {
@@ -193,10 +199,10 @@ void readData()
       WindSpeed = Weather.floatData();
     }
 
-    if (Firebase.getFloat(Weather, "Pressure/Pressure"))
+    /*if (Firebase.getFloat(Weather, "Pressure/Pressure"))
     {
       pressurehpa = Weather.floatData();
-    }
+    }*/
 
     if (Firebase.getFloat(Weather, "Inside/Temperature"))
     {
@@ -594,6 +600,10 @@ void SetupData()
 void getDataTime()
 {
   //Serial.println("Getting Time...");
+  if (Firebase.getInt(Weather, "Pressure/Calibration"))
+  {
+    CALIBRATION = Weather.intData();
+  }
 
   if (Firebase.getInt(Weather, "ChangeTime/CurrentDay"))
   {
@@ -691,6 +701,8 @@ void setup()
   SetupData();
   getDataTime();
   server.begin();
+  Wire.begin();
+  bmp.begin();
 }
 
 void loop()
@@ -700,3 +712,4 @@ void loop()
   gettime();
   lineameteo();
 }
+[/code]
