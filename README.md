@@ -16,7 +16,7 @@ Please Note (The links above will go Offline because the weather station will be
 YOU CAN FIND ALL THE INFO HERE IN GITHUB
 
 
-# Consuption:
+# Consumption:
 
 # Device 1 
 19mA in average if upload time is 90 seconds.
