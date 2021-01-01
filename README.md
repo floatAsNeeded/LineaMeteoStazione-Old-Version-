@@ -4,8 +4,12 @@ LineaMeteoStazione is a complete weather station which can be interfaced with pr
 YOU CAN FIND THE WEATHER STATION IN WeatherCloud, Wunderground and LineaMeteo (Italian Weather network!) (Anemometer is not Installed)
 
 https://app.weathercloud.net/d5032014112#profile
+
 https://www.wunderground.com/dashboard/pws/IMELBO1836
+
 http://www.lineameteo.it/stazioni.php?id=1857
+
+https://thingspeak.com/channels/1109717
 
 Please Note (The links above will go Offline because the weather station will be removed in February 2021 because I'm changing house)
 
