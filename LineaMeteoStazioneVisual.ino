@@ -117,7 +117,7 @@ int   getgasreference_count = 0;
 int AQIndex;
 String AQI;
 int CALIBRATION;
-float pressure;
+//float pressure;
 float pressurehpa;
 //PRESSURE EXTREMES//
 //float pressureMax;
@@ -389,18 +389,18 @@ void getValues()
 
   if (Firebase.getFloat(Weather, "Pressure/Pressure"))
   {
-    pressure = Weather.floatData();
+    pressurehpa = Weather.floatData();
   }
   if (Firebase.getInt(Weather, "/UVindex"))
   {
     UVindex = Weather.intData();
   }
   bme.performReading();
-  pressure = bme.pressure + CALIBRATION;
-  pressurehpa = pressure / 100;
+  //pressure = bme.pressure + CALIBRATION;
+  //pressurehpa = pressure / 100;
   humidityIN = bme.humidity;
   temperatureIN = bme.temperature;
-  Firebase.setFloat(Weather, "Pressure/Pressure", pressurehpa);
+  //Firebase.setFloat(Weather, "Pressure/Pressure", pressurehpa);
   Firebase.setFloat(Weather, "Inside/Temperature", temperatureIN);
   Firebase.setInt(Weather, "Inside/Humidity", humidityIN);
   airQuality();
@@ -1313,7 +1313,7 @@ void setup() {
   bme.begin();
   bme.setTemperatureOversampling(BME680_OS_8X);
   bme.setHumidityOversampling(BME680_OS_2X);
-  bme.setPressureOversampling(BME680_OS_4X);
+  //bme.setPressureOversampling(BME680_OS_4X);
   bme.setIIRFilterSize(BME680_FILTER_SIZE_3);
   bme.setGasHeater(320, 150); // 320*C for 150 ms
 }
