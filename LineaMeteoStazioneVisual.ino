@@ -116,7 +116,7 @@ float hum_reference = 40;
 int   getgasreference_count = 0;
 int AQIndex;
 String AQI;
-int CALIBRATION;
+//int CALIBRATION;
 //float pressure;
 float pressurehpa;
 //PRESSURE EXTREMES//
@@ -197,10 +197,10 @@ void getDataTime()
   {
     TIMEZONE = Weather.intData();
   }
-  if (Firebase.getInt(Weather, "Pressure/Calibration"))
+  /*if (Firebase.getInt(Weather, "Pressure/Calibration"))
   {
     CALIBRATION = Weather.intData();
-  }
+  }*/
   if (Firebase.getString(Weather, "Services/OpenWeather/API"))
   {
     api_key = Weather.stringData();
