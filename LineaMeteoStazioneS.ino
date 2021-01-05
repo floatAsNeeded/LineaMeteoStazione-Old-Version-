@@ -41,8 +41,10 @@ Adafruit_SI1145 uv = Adafruit_SI1145();
 
 
 ////////////////////*********FIREBASE DETAILS************///////////////////////////////////
-#define FIREBASE_HOST ""                 // the project name address from firebase id
-#define FIREBASE_AUTH ""            // the secret key generated from firebase
+//#define FIREBASE_HOST "weather-station-95094.firebaseio.com"                 // the project name address from firebase id
+//#define FIREBASE_AUTH "PihHbkRGMXvTPJ7vmJdQmR3wfSvIZPZhJpL86tU0"            // the secret key generated from firebase
+#define FIREBASE_HOST "lineameteostazione-default-rtdb.firebaseio.com"                 // the project name address from firebase id
+#define FIREBASE_AUTH "xRUZGLhfeDYoX1x3GijIs04LoZpFfxSjbbduPxK2"            // the secret key generated from firebase
 FirebaseData Weather;
 
 //--------------------------------------------------------------------------------------//
@@ -83,7 +85,9 @@ float rainrateMax = 0; // daily rainrateMax
 volatile unsigned int Rotations; // cup rotation counter used in interrupt routine
 volatile unsigned long ContactBounceTime = 0; // Timer to avoid contact bounce in interrupt routine
 unsigned long calculation = 0; //millis() for sample time
-const int average = 3000; // sample time for wind speed
+unsigned long StartcalculationWiFi = 0; //millis() for sample time
+unsigned long EndcalculationWiFi = 0; //millis() for sample time
+unsigned int average = 3000; // sample time for wind speed
 float constant; // formula calculation
 float WindSpeed; // speed km/h
 float Gust = 0; // gust variable
@@ -250,13 +254,14 @@ void readPioggia () {
 //WIND//
 void readVento () {
   //FORMULA V=P(Rotations)(2.25/T)--->constant
+  constant = 2.25 / (average / 1000);
   if (millis() - calculation >= average)
   {
     calculation = millis();
     WindSpeed = (Rotations * constant) * 1.60934;
     Rotations = 0;
+    average = 3000;
   }
-
   if (WindSpeed > Gust)
   {
     Gust = WindSpeed;
@@ -308,6 +313,7 @@ void readData()
 
   if ((millis() - previoustemp >= uploadtime) || (justrestart == true))
   {
+    StartcalculationWiFi = millis();
     justrestart = false;
     WiFi.forceSleepWake();
     delay(100);
@@ -384,6 +390,8 @@ void readData()
     WiFi.mode(WIFI_OFF);
     WiFi.forceSleepBegin();
     delay(100);
+    EndcalculationWiFi = millis();
+    average = EndcalculationWiFi - StartcalculationWiFi;
   }
 }
 
@@ -437,6 +445,7 @@ void writeDataSleeping()
 
 
 void setup() {
+  StartcalculationWiFi = millis();
   //Serial.begin(115200);  // Initialize serial
   //wifiManager.resetSettings();
   WiFi.mode(WIFI_STA);
@@ -468,6 +477,8 @@ void setup() {
   sht3xd.readSerialNumber();
   uv.begin();                           // initializes the sensor
   justrestart = true;
+  EndcalculationWiFi = millis();
+  average = EndcalculationWiFi - StartcalculationWiFi;
   /*if (sht3xd.periodicStart(SHT3XD_REPEATABILITY_HIGH, SHT3XD_FREQUENCY_10HZ) != SHT3XD_NO_ERROR)
     Serial.println("[ERROR] Cannot start periodic mode");*/
 }
