@@ -311,6 +311,7 @@ void readData()
 
   if ((millis() - previoustemp >= uploadtime) || (justrestart == true))
   {
+    Rotations = 0;
     StartcalculationWiFi = millis();
     justrestart = false;
     WiFi.forceSleepWake();
