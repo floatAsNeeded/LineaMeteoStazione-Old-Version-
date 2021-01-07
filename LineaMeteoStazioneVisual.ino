@@ -1322,5 +1322,6 @@ void loop() {
   getValues();
   DisplayWeather();
   display.display(false); // Full screen update mode
+  delay(100);
   BeginSleep();
 }
