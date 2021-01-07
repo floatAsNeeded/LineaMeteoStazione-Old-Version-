@@ -1274,6 +1274,14 @@ void DrawBattery(int x, int y) {
   //Serial.println("Voltage = " + String(voltage));
   //percentage = 2836.9625 * pow(voltage, 4) - 43987.4889 * pow(voltage, 3) + 255233.8134 * pow(voltage, 2) - 656689.7123 * voltage + 632041.7303;
   percentage = map(voltage, 360, 430, 0, 100);
+  if (percentage > 100)
+  {
+    percentage = 100;
+  }
+  if (percentage < 0)
+  {
+    percentage = 0;
+  }
   //if (voltage >= 4.20) percentage = 100;
   //if (voltage <= 3.50) percentage = 0;
   display.drawRect(x + 15, y - 12, 19, 10, GxEPD_BLACK);
