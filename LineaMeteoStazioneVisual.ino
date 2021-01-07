@@ -260,9 +260,9 @@ void gettime()
 //SLEEP//
 void BeginSleep() {
   display.powerOff();
-  if (timeClient.getHours() >= 0 && timeClient.getHours() < 7)
+  if (timeClient.getHours() >= 1 && timeClient.getHours() < 7)
   {
-    SleepDuration = 3600; //1 hour at night
+    SleepDuration = 7200; //2 hours at night
   }
   else
   {
@@ -1273,7 +1273,7 @@ void DrawBattery(int x, int y) {
   voltage = voltage * 100;
   //Serial.println("Voltage = " + String(voltage));
   //percentage = 2836.9625 * pow(voltage, 4) - 43987.4889 * pow(voltage, 3) + 255233.8134 * pow(voltage, 2) - 656689.7123 * voltage + 632041.7303;
-  percentage = map(voltage, 370, 430, 0, 100);
+  percentage = map(voltage, 360, 430, 0, 100);
   //if (voltage >= 4.20) percentage = 100;
   //if (voltage <= 3.50) percentage = 0;
   display.drawRect(x + 15, y - 12, 19, 10, GxEPD_BLACK);
