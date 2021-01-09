@@ -1316,6 +1316,7 @@ void setup() {
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);   // connect to firebase
   Firebase.reconnectWiFi(true);
   Firebase.setMaxRetry(Weather, 2);
+  timeClient.begin();
   getDataTime();
   Wire.begin();
   bme.begin();
@@ -1330,6 +1331,5 @@ void loop() {
   getValues();
   DisplayWeather();
   display.display(false); // Full screen update mode
-  delay(100);
   BeginSleep();
 }
