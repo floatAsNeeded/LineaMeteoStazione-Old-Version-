@@ -11,7 +11,7 @@ http://www.lineameteo.it/stazioni.php?id=1857
 
 https://thingspeak.com/channels/1109717
 
-Please Note (The links above will go Offline because the weather station will be removed in February 2021 because I'm changing house)
+Please Note (The links above will go Offline because the weather station will be removed in February 2021 because I'm moving in an apartment)
 
 YOU CAN FIND ALL THE INFO HERE IN GITHUB
 
